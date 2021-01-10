@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DisplayMenu"
-    android:orientation="vertical">
+    tools:context=".DisplayMenu">
 
     <Button
         android:id="@+id/btnMyOrder"
@@ -15,14 +14,17 @@
         android:layout_gravity="right"
         android:text="MyOrder"
         android:textSize="20dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="25dp"/>
+        android:layout_alignParentEnd="true"
+        android:layout_margin="25dp"/>
 
-    <ListView
-        android:id="@+id/list_menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="318dp"
+        android:layout_height="500dp"
+        android:layout_below="@+id/btnMyOrder"
+        android:layout_marginTop="42dp" />
 
 
-</LinearLayout>
+
+
+</RelativeLayout>
