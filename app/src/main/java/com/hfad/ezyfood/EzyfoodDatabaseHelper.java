@@ -106,7 +106,8 @@ public class EzyfoodDatabaseHelper extends SQLiteOpenHelper {
             );
             db.execSQL("CREATE TABLE CART_DETAILS(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + "MENU_ID INTEGER, "
-                    + "QTY INTEGER,"
+                    + "QTY INTEGER," +
+                    "TOTAL_PRICE INTEGER,"
                     + "CARTS_ID INTEGER,"
                     + "FOREIGN KEY (CARTS_ID) REFERENCES CARTS(_id),"
                     + "FOREIGN KEY (MENU_ID) REFERENCES MENU(_id)"

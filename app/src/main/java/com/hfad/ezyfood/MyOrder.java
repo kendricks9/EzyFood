@@ -30,10 +30,11 @@ public class MyOrder extends AppCompatActivity {
         EzyfoodDatabaseHelper ezyfoodDatabaseHelper = new EzyfoodDatabaseHelper(this);
         try {
             db = ezyfoodDatabaseHelper.getWritableDatabase();
-            cursor = db.rawQuery("SELECT SUM(PRICE) FROM CART_DETAILS", null);
+            cursor = db.rawQuery("SELECT SUM(TOTAL_PRICE) FROM CART_DETAILS", null);
             TextView textView = findViewById(R.id.txtTotal);
-            cursor.moveToFirst();
-            textView.setText("Total: Rp. " + cursor.getString(0));
+            if(cursor.moveToFirst()){
+                textView.setText("Total: Rp. " + cursor.getString(0));
+            }
             RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             mAdapter = new MyOrderAdapter(this, getAllItems());
@@ -68,9 +69,8 @@ public class MyOrder extends AppCompatActivity {
     }
 
     private Cursor getAllItems(){
-        return db.query(
-                "CART_DETAILS",
-                new String[] {"NAME", "PRICE", "QTY"},
-                null, null, null, null,null);
+        return db.rawQuery("SELECT CART_DETAILS.QTY, CART_DETAILS.TOTAL_PRICE, MENU.NAME, MENU.PRICE FROM CART_DETAILS " +
+                "INNER JOIN MENU ON CART_DETAILS.MENU_ID=MENU._ID", null);
     }
+
 }

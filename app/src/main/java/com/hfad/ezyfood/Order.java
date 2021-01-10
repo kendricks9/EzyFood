@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Order extends AppCompatActivity {
     public static final String EXTRA_MENUID = "menuId";
     Cursor cursor;
+    int menuId;
     SQLiteDatabase db;
     String nameText, priceText;
 
@@ -26,7 +27,7 @@ public class Order extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        int menuId = (Integer)getIntent().getExtras().get(EXTRA_MENUID);
+        menuId = (Integer)getIntent().getExtras().get(EXTRA_MENUID);
 
         SQLiteOpenHelper ezyfoodDatabaseHelper = new EzyfoodDatabaseHelper(this);
         try {
@@ -80,8 +81,8 @@ public class Order extends AppCompatActivity {
         int total_price = order_qty * Integer.parseInt(priceText);
 
         ContentValues cartDetailValues = new ContentValues();
-        cartDetailValues.put("NAME", nameText);
-        cartDetailValues.put("PRICE", total_price);
+        cartDetailValues.put("TOTAL_PRICE", total_price);
+        cartDetailValues.put("MENU_ID", menuId);
         cartDetailValues.put("QTY", order_qty);
         cartDetailValues.put("CARTS_ID", 1);
         db.insert("CART_DETAILS", null, cartDetailValues);
