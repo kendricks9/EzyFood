@@ -105,13 +105,27 @@ public class EzyfoodDatabaseHelper extends SQLiteOpenHelper {
                     + ");"
             );
             db.execSQL("CREATE TABLE CART_DETAILS(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + "NAME TEXT, "
-                    + "PRICE INTEGER, "
+                    + "MENU_ID INTEGER, "
                     + "QTY INTEGER,"
                     + "CARTS_ID INTEGER,"
-                    + "FOREIGN KEY (CARTS_ID) REFERENCES CARTS(_id)"
+                    + "FOREIGN KEY (CARTS_ID) REFERENCES CARTS(_id),"
+                    + "FOREIGN KEY (MENU_ID) REFERENCES MENU(_id)"
                     + ");"
             );
+            db.execSQL("CREATE TABLE TRANSACTIONS(" +
+                    "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "USER_ID INTEGER," +
+                    "RESTAURANT_NAME TEXT," +
+                    "TANGGAL DATE" +
+                    ")");
+            db.execSQL("CREATE TABLE TRANSACTION_DETAIL(" +
+                    "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "NAME TEXT," +
+                    "PRICE INTEGER," +
+                    "QTY INTEGER," +
+                    "TRANSACTION_ID INTEGER," +
+                    "FOREIGN KEY (TRANSACTION_ID) REFERENCES TRANSACTIONS(_id)" +
+                    ")");
 
             insertUser(db, "Kendrick Saputra", 100000);
 
