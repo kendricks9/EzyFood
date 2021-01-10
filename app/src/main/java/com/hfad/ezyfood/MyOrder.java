@@ -69,7 +69,7 @@ public class MyOrder extends AppCompatActivity {
     }
 
     private Cursor getAllItems(){
-        return db.rawQuery("SELECT CART_DETAILS.QTY, CART_DETAILS.TOTAL_PRICE, MENU.NAME, MENU.PRICE FROM CART_DETAILS " +
+        return db.rawQuery("SELECT CART_DETAILS._ID, CART_DETAILS.QTY, CART_DETAILS.TOTAL_PRICE, MENU.NAME, MENU.PRICE FROM CART_DETAILS " +
                 "INNER JOIN MENU ON CART_DETAILS.MENU_ID=MENU._ID", null);
     }
 

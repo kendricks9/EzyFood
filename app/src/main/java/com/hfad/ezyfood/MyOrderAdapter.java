@@ -42,8 +42,10 @@ public class MyOrderAdapter extends RecyclerView.Adapter <MyOrderAdapter.ViewHol
         if(!mCursor.moveToPosition(position)){
             return;
         }
-        holder.mMenu.setText(mCursor.getString(2) + "\n" + mCursor.getString(0) + " x " + mCursor.getString(3) + " = " + mCursor.getString(1));
+        holder.mMenu.setText(mCursor.getString(3) + "\n" + mCursor.getString(1) + " x " + mCursor.getString(4) + " = " + mCursor.getString(2));
 //        cursor.moveToNext();
+        long id = mCursor.getLong(0);
+        holder.itemView.setTag(id);
     }
 
     @Override
