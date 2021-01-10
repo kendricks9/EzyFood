@@ -58,7 +58,7 @@ public class EzyfoodDatabaseHelper extends SQLiteOpenHelper {
         db.insert("RESTAURANT", null, restaurantValues);
     }
 
-    private static void insertRestaurantDetail(SQLiteDatabase db, String qty, int resto_id, int menu_id){
+    private static void insertRestaurantDetail(SQLiteDatabase db, int qty, int resto_id, int menu_id){
         ContentValues restaurantDetailValues = new ContentValues();
         restaurantDetailValues.put("QTY", qty);
         restaurantDetailValues.put("RESTAURANT_ID", resto_id);
@@ -139,9 +139,49 @@ public class EzyfoodDatabaseHelper extends SQLiteOpenHelper {
             insertRestaurant(db, "ezyFood BSD", "dekat Aeon", -6.305984267861596, 106.64178335251724);
             insertRestaurant(db, "ezyFood Bintaro", "dekat XChange",  -6.285772520747877, 106.72641318937653);
 
+            insertRestaurantDetail(db, 50, 1, 1);
+            insertRestaurantDetail(db, 10, 1, 2);
+            insertRestaurantDetail(db, 10, 1, 3);
+            insertRestaurantDetail(db, 20, 1, 4);
+            insertRestaurantDetail(db, 25, 1, 5);
+            insertRestaurantDetail(db, 30, 1, 6);
+            insertRestaurantDetail(db, 10, 1, 7);
+            insertRestaurantDetail(db, 15, 1, 8);
+            insertRestaurantDetail(db, 25, 1, 9);
+            insertRestaurantDetail(db, 8, 1, 10);
+            insertRestaurantDetail(db, 12, 1, 11);
+            insertRestaurantDetail(db, 11, 1, 12);
+            insertRestaurantDetail(db, 15, 1, 1);
+
+            insertRestaurantDetail(db, 50, 2, 1);
+            insertRestaurantDetail(db, 10, 2, 2);
+            insertRestaurantDetail(db, 10, 2, 3);
+            insertRestaurantDetail(db, 20, 2, 4);
+            insertRestaurantDetail(db, 25, 2, 5);
+            insertRestaurantDetail(db, 30, 2, 6);
+            insertRestaurantDetail(db, 10, 2, 7);
+            insertRestaurantDetail(db, 15, 2, 8);
+            insertRestaurantDetail(db, 25, 2, 9);
+            insertRestaurantDetail(db, 8, 2, 10);
+            insertRestaurantDetail(db, 12, 2, 11);
+            insertRestaurantDetail(db, 11, 2, 12);
+            insertRestaurantDetail(db, 15, 2, 1);
+
+            insertRestaurantDetail(db, 50, 3, 1);
+            insertRestaurantDetail(db, 10, 3, 2);
+            insertRestaurantDetail(db, 10, 3, 3);
+            insertRestaurantDetail(db, 20, 3, 4);
+            insertRestaurantDetail(db, 25, 3, 5);
+            insertRestaurantDetail(db, 30, 3, 6);
+            insertRestaurantDetail(db, 10, 3, 7);
+            insertRestaurantDetail(db, 15, 3, 8);
+            insertRestaurantDetail(db, 25, 3, 9);
+            insertRestaurantDetail(db, 8, 3, 10);
+            insertRestaurantDetail(db, 12, 3, 11);
+            insertRestaurantDetail(db, 11, 3, 12);
+            insertRestaurantDetail(db, 15, 3, 1);
+
             insertCarts(db, 0, 1);
-
-
 
         }
     }
