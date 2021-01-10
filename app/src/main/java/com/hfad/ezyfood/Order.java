@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Order extends AppCompatActivity {
     public static final String EXTRA_MENUID = "menuId";
-    Cursor cursor;
+    Cursor cursor, cursor2;
     int menuId;
     SQLiteDatabase db;
     String nameText, priceText;
@@ -78,14 +78,30 @@ public class Order extends AppCompatActivity {
         TextView order = findViewById(R.id.order);
         String sQty = order.getText().toString();
         int order_qty = Integer.parseInt(sQty);
-        int total_price = order_qty * Integer.parseInt(priceText);
-
         ContentValues cartDetailValues = new ContentValues();
-        cartDetailValues.put("TOTAL_PRICE", total_price);
-        cartDetailValues.put("MENU_ID", menuId);
-        cartDetailValues.put("QTY", order_qty);
-        cartDetailValues.put("CARTS_ID", 1);
-        db.insert("CART_DETAILS", null, cartDetailValues);
+
+
+        cursor2 = db.rawQuery("SELECT _id, QTY FROM CART_DETAILS WHERE MENU_ID = " + menuId, null);
+        if(cursor2.moveToFirst() && cursor2.getString(0) != null){
+            order_qty += cursor2.getInt(1);
+            int id = cursor2.getInt(0);
+            int total_price = order_qty * Integer.parseInt(priceText);
+            cartDetailValues.put("QTY", order_qty);
+            cartDetailValues.put("TOTAL_PRICE", total_price);
+            db.update("CART_DETAILS", cartDetailValues, "_id = ?", new String[] {Integer.toString(id)});
+
+        } else{
+            int total_price = order_qty * Integer.parseInt(priceText);
+
+            cartDetailValues.put("TOTAL_PRICE", total_price);
+            cartDetailValues.put("MENU_ID", menuId);
+            cartDetailValues.put("QTY", order_qty);
+            cartDetailValues.put("CARTS_ID", 1);
+            db.insert("CART_DETAILS", null, cartDetailValues);
+        }
+
+
+
     }
 
 
