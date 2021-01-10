@@ -1,55 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    tools:context=".MainActivity">
 
     <TextView
-        android:layout_marginTop="25dp"
         android:id="@+id/txtResto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginRight="25dp"/>
+        android:layout_below="@+id/btnResto"
+        android:layout_alignStart="@+id/btnResto"
+        android:layout_alignEnd="@+id/btnResto"
+        android:layout_gravity="right"/>
 
     <Button
         android:id="@+id/btnResto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Resto"
+        android:layout_alignTop="@+id/btnMyOrder"
+        android:layout_alignBottom="@+id/btnMyOrder"
         android:layout_gravity="right"
         android:layout_marginRight="25dp"
+        android:layout_toStartOf="@+id/btnMaps"
         android:onClick="changeResto"
-        />
+        android:text="Change Resto" />
 
     <Button
         android:id="@+id/btnMaps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onMaps"
+        android:layout_alignParentTop="true"
         android:layout_gravity="right"
-        android:text="Google Maps Resto"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="25dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="25dp"
+        android:layout_toStartOf="@+id/btnMyOrder"
+        android:onClick="onMaps"
+        android:text="Google \n Maps \n Resto" />
 
     <Button
         android:id="@+id/btnMyOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onMyOrder"
-        android:layout_gravity="right"
         android:text="MyOrder"
         android:layout_marginTop="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="25dp"/>
+        android:layout_marginBottom="25dp"
+        android:layout_alignParentEnd="true"/>
 
-    <ListView
-        android:id="@+id/list_options"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp">
+        <ListView
+            android:id="@+id/list_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
 
-</LinearLayout>
+
+</RelativeLayout>
