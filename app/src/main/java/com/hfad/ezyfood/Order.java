@@ -64,12 +64,12 @@ public class Order extends AppCompatActivity {
         int order_qty = Integer.parseInt(sQty) ;
         int total_price = order_qty * Integer.parseInt(priceText);
 
-        ContentValues transactionDetailValues = new ContentValues();
-        transactionDetailValues.put("NAME", nameText);
-        transactionDetailValues.put("PRICE", total_price);
-        transactionDetailValues.put("QTY", order_qty);
-        transactionDetailValues.put("TRANSACTION_ID", 1);
-        db.insert("TRANSACTION_DETAIL", null, transactionDetailValues);
+        ContentValues cartDetailValues = new ContentValues();
+        cartDetailValues.put("NAME", nameText);
+        cartDetailValues.put("PRICE", total_price);
+        cartDetailValues.put("QTY", order_qty);
+        cartDetailValues.put("CARTS_ID", 1);
+        db.insert("CART_DETAILS", null, cartDetailValues);
 
         Intent intent = new Intent(this, DisplayMenu.class);
         int category_id = cursor.getInt(3);
@@ -83,12 +83,12 @@ public class Order extends AppCompatActivity {
         int order_qty = Integer.parseInt(sQty);
         int total_price = order_qty * Integer.parseInt(priceText);
 
-        ContentValues transactionDetailValues = new ContentValues();
-        transactionDetailValues.put("NAME", nameText);
-        transactionDetailValues.put("PRICE", total_price);
-        transactionDetailValues.put("QTY", order_qty);
-        transactionDetailValues.put("TRANSACTION_ID", 1);
-        db.insert("TRANSACTION_DETAIL", null, transactionDetailValues);
+        ContentValues cartDetailValues = new ContentValues();
+        cartDetailValues.put("NAME", nameText);
+        cartDetailValues.put("PRICE", total_price);
+        cartDetailValues.put("QTY", order_qty);
+        cartDetailValues.put("CARTS_ID", 1);
+        db.insert("CART_DETAILS", null, cartDetailValues);
 
         Intent intent = new Intent(this, MyOrder.class);
         startActivity(intent);

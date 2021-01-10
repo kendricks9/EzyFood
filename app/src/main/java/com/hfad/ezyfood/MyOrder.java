@@ -30,7 +30,7 @@ public class MyOrder extends AppCompatActivity {
         EzyfoodDatabaseHelper ezyfoodDatabaseHelper = new EzyfoodDatabaseHelper(this);
         try {
             db = ezyfoodDatabaseHelper.getWritableDatabase();
-            cursor = db.rawQuery("SELECT SUM(PRICE) FROM TRANSACTION_DETAIL", null);
+            cursor = db.rawQuery("SELECT SUM(PRICE) FROM CART_DETAILS", null);
             TextView textView = findViewById(R.id.txtTotal);
             cursor.moveToFirst();
             textView.setText("Total: Rp. " + cursor.getString(0));
@@ -58,7 +58,7 @@ public class MyOrder extends AppCompatActivity {
     }
 
     private void removeItem(long id){
-        db.delete("TRANSACTION_DETAIL", "_id" + "=" + id, null);
+        db.delete("CART_DETAILS", "_id" + "=" + id, null);
         mAdapter.swapCursor(getAllItems());
     }
 
@@ -69,7 +69,7 @@ public class MyOrder extends AppCompatActivity {
 
     private Cursor getAllItems(){
         return db.query(
-                "TRANSACTION_DETAIL",
+                "CART_DETAILS",
                 new String[] {"NAME", "PRICE", "QTY"},
                 null, null, null, null,null);
     }

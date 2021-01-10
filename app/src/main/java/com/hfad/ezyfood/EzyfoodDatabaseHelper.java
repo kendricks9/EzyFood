@@ -66,11 +66,11 @@ public class EzyfoodDatabaseHelper extends SQLiteOpenHelper {
         db.insert("RESTAURANT_DETAIL", null, restaurantDetailValues);
     }
 
-    private static void insertTransactions(SQLiteDatabase db, int total_price, int id){
-        ContentValues transactionValues = new ContentValues();
-        transactionValues.put("TOTAL_PRICE", total_price);
-        transactionValues.put("USER_ID", id);
-        db.insert("TRANSACTIONS", null, transactionValues);
+    private static void insertCarts(SQLiteDatabase db, int total_price, int id){
+        ContentValues cartValues = new ContentValues();
+        cartValues.put("TOTAL_PRICE", total_price);
+        cartValues.put("USER_ID", id);
+        db.insert("CARTS", null, cartValues);
     }
 
     private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -97,19 +97,19 @@ public class EzyfoodDatabaseHelper extends SQLiteOpenHelper {
                     "RESTAURANT_ID INTEGER," +
                     "FOREIGN KEY (RESTAURANT_ID) REFERENCES RESTAURANT(_id),"+
                     "FOREIGN KEY (MENU_ID) REFERENCES MENU(_id));");
-            db.execSQL("CREATE TABLE TRANSACTIONS("
+            db.execSQL("CREATE TABLE CARTS("
                     + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + "USER_ID INTEGER," +
                     "TOTAL_PRICE INTEGER,"
                     + "FOREIGN KEY (USER_ID) REFERENCES USER(_id)"
                     + ");"
             );
-            db.execSQL("CREATE TABLE TRANSACTION_DETAIL(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            db.execSQL("CREATE TABLE CART_DETAILS(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + "NAME TEXT, "
                     + "PRICE INTEGER, "
                     + "QTY INTEGER,"
-                    + "TRANSACTION_ID INTEGER,"
-                    + "FOREIGN KEY (TRANSACTION_ID) REFERENCES TRANSACTIONS(_id)"
+                    + "CARTS_ID INTEGER,"
+                    + "FOREIGN KEY (CARTS_ID) REFERENCES CARTS(_id)"
                     + ");"
             );
 
@@ -139,7 +139,7 @@ public class EzyfoodDatabaseHelper extends SQLiteOpenHelper {
             insertRestaurant(db, "ezyFood BSD", "dekat Aeon", -6.305984267861596, 106.64178335251724);
             insertRestaurant(db, "ezyFood Bintaro", "dekat XChange",  -6.285772520747877, 106.72641318937653);
 
-            insertTransactions(db, 0, 1);
+            insertCarts(db, 0, 1);
 
 
 
