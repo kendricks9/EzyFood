@@ -11,35 +11,40 @@
         android:id="@+id/txtTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Order Complete"
+        android:layout_below="@+id/btnMenu"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="11dp"
+        android:text="Your Order Complete\n ThankYou"
+        android:textAlignment="center"
         android:textColor="#F60000"
-        android:textSize="32sp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_toEndOf="@+id/txtTotal"
         android:onClick="onMenuUtama"
+        android:layout_alignParentEnd="true"
         android:text="Menu Utama" />
 
     <TextView
         android:id="@+id/txtMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/txtTotal"
         android:layout_alignStart="@+id/txtTotal"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="80dp" />
+        android:layout_marginTop="15dp"
+        android:textSize="25sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="318dp"
         android:layout_height="500dp"
-        android:layout_alignStart="@+id/txtTotal"
-        android:layout_alignParentTop="@+id/txtMessage"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="200dp" />
+        android:layout_below="@+id/txtMessage"
+        android:layout_alignStart="@+id/txtMessage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="40dp" />
 
 </RelativeLayout>
