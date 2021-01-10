@@ -18,7 +18,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private SQLiteDatabase db;
-    private Cursor cursor, cursor2;
+    private Cursor cursor, resto_cursor;
     public static final String EXTRA_RESTAURANTID = "restaurantId";
 
     @Override
@@ -27,18 +27,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SQLiteOpenHelper ezyfoodDatabaseHelper = new EzyfoodDatabaseHelper(this);
         ListView listCategories = (ListView) findViewById(R.id.list_options);
+        Bundle extras = getIntent().getExtras();
         try {
             db = ezyfoodDatabaseHelper.getReadableDatabase();
             cursor = db.query("CATEGORY",
                     new String[]{"_id", "NAME"},
                     null, null, null, null, null);
-            cursor2 = db.query("RESTAURANT",
-                    new String[]{"_id","NAME"}, "_id=1", null, null, null, null);
-            if(cursor2.moveToFirst()){
-                String nameText = cursor2.getString(1);
+
+            if(extras != null){
+                int restaurantId = (Integer) getIntent().getExtras().get(EXTRA_RESTAURANTID);
+                resto_cursor = db.query("RESTAURANT",
+                        new String[]{"_id","NAME"}, "_id=?", new String[] {Integer.toString(restaurantId)}, null, null, null);
+            } else {
+                resto_cursor = db.query("RESTAURANT",
+                        new String[]{"_id","NAME"}, "_id=1", null, null, null, null);
+            }
+
+            if(resto_cursor.moveToFirst()){
+                String nameText = resto_cursor.getString(1);
                 TextView name = (TextView) findViewById(R.id.txtResto);
                 name.setText(nameText);
             }
+
             SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(this,
                     android.R.layout.simple_list_item_1,
                     cursor,
@@ -58,13 +68,14 @@ public class MainActivity extends AppCompatActivity {
                                             View itemView,
                                             int position,
                                             long id) {
-                        //Pass the drink the user clicks on to DrinkActivity
+                        // Jika User Memilih pilihan TopUp
                         if(id==4){
                             Intent intent = new Intent(MainActivity.this,
                                     TopUp.class);
                             startActivity(intent);
                             return;
                         }
+
                         Intent intent = new Intent(MainActivity.this,
                                 DisplayMenu.class);
                         intent.putExtra(DisplayMenu.EXTRA_CATEGORYID, (int) id);
@@ -89,12 +100,5 @@ public class MainActivity extends AppCompatActivity {
     public void onMaps(View view){
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        cursor.close();
-        db.close();
     }
 }
