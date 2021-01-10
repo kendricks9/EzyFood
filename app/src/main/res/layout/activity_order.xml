@@ -1,63 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Order"
-    android:orientation="vertical">
+    android:padding="20dp">
 
     <Button
         android:id="@+id/btnMyOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onMyOrder"
-        android:layout_gravity="right"
-        android:text="MyOrder"
-        android:textSize="20dp"
         android:layout_marginTop="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="25dp"/>
+        android:layout_marginBottom="25dp"
+        android:layout_alignParentEnd="true"
+        android:onClick="onMyOrder"
+        android:text="MyOrder"
+        android:textSize="20dp" />
 
     <ImageView
         android:id="@+id/photo"
         android:layout_width="190dp"
         android:layout_height="190dp"
-        android:layout_gravity="center"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="123dp" />
+
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="15dp"
-        />
+        android:layout_below="@+id/photo"
+        android:layout_alignStart="@+id/photo"
+        android:layout_alignEnd="@+id/photo"
+        android:layout_marginLeft="65dp"
+        android:text="name"
+        android:textSize="15dp" />
+
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="15dp"
-        />
+        android:layout_below="@+id/name"
+        android:layout_alignStart="@+id/name"
+        android:layout_alignEnd="@+id/name"
+        android:text="price"
+        android:textSize="15dp" />
 
 
-    <EditText
+    <TextView
         android:id="@+id/order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
+        android:layout_below="@+id/btnDecrease"
+        android:layout_alignStart="@+id/btnDecrease"
+        android:layout_alignEnd="@+id/btnDecrease"
         android:text="1"
-        android:layout_gravity="center"/>
+        android:textAlignment="center"
+        android:textSize="20sp" />
 
     <Button
-        android:id="@+id/btnOrderMore"
+        android:id="@+id/btnIncrease"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order"
+        android:layout_alignStart="@+id/order"
+        android:layout_alignEnd="@+id/order"
+        android:text="+" />
+
+    <Button
+        android:id="@+id/btnDecrease"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/price"
+        android:layout_alignStart="@+id/price"
+        android:text="-" />
+
+    <Button
+        android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="Order More"
-        android:onClick="OnOrderMore"
-        android:textSize="20dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="25dp"/>
+        android:layout_below="@+id/btnIncrease"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="25dp"
+        android:text="Add"
+        android:textSize="20dp" />
 
-</LinearLayout>
+</RelativeLayout>

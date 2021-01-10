@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,8 @@ public class Order extends AppCompatActivity {
     int menuId;
     SQLiteDatabase db;
     String nameText, priceText;
+    private int mAmount = 1;
+    private TextView mTextViewAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,26 +60,54 @@ public class Order extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
-    }
 
-    public void OnOrderMore(View view){
-        addCart();
+        mTextViewAmount = findViewById(R.id.order);
 
-        int category_id = cursor.getInt(3);
-        Intent intent = new Intent(this, DisplayMenu.class);
-        intent.putExtra(DisplayMenu.EXTRA_CATEGORYID, (int) category_id);
-        startActivity(intent);
+        Button buttonIncrease = findViewById(R.id.btnIncrease);
+        Button buttonDecrease = findViewById(R.id.btnDecrease);
+        Button buttonAdd = findViewById(R.id.btnAdd);
+
+        buttonIncrease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                increase();
+            }
+        });
+
+        buttonDecrease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                decrease();
+            }
+        });
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addCart();
+            }
+        });
     }
 
     public void onMyOrder(View view){
-        addCart();
         Intent intent = new Intent(this, MyOrder.class);
         startActivity(intent);
     }
 
+    private void increase(){
+        mAmount++;
+        mTextViewAmount.setText(String.valueOf(mAmount));
+    }
+
+    private void decrease(){
+        if(mAmount > 1){
+            mAmount--;
+            mTextViewAmount.setText(String.valueOf(mAmount));
+        }
+    }
+
     private void addCart(){
-        TextView order = findViewById(R.id.order);
-        String sQty = order.getText().toString();
+        String sQty = mTextViewAmount.getText().toString();
         int order_qty = Integer.parseInt(sQty);
         ContentValues cartDetailValues = new ContentValues();
 
@@ -100,6 +131,8 @@ public class Order extends AppCompatActivity {
             db.insert("CART_DETAILS", null, cartDetailValues);
         }
 
+        Toast toast = Toast.makeText(this, "Item Berhasil ditambahkan", Toast.LENGTH_SHORT);
+        toast.show();
 
 
     }
