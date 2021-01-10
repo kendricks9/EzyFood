@@ -51,14 +51,21 @@ public class TopUp extends AppCompatActivity {
     public void onTopUp(View view){
         TextView topUp = findViewById(R.id.topUp);
         String tUp = topUp.getText().toString();
-        int tu = Integer.parseInt(tUp) + Integer.parseInt(e_moneyText);
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        ContentValues cv = new ContentValues();
-        cv.put("E_MONEY", tu);
-        db.update("USER", cv, "_id = 1", null);
-        Toast toast = Toast.makeText(this, "Top Up Success", Toast.LENGTH_SHORT);
-        toast.show();
+        int tu = Integer.parseInt(tUp);
+        if(tu >= 2000000){
+            Toast toast = Toast.makeText(this, "Max 2.000.000", Toast.LENGTH_SHORT);
+            toast.show();
+        } else{
+            tu += Integer.parseInt(e_moneyText);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            ContentValues cv = new ContentValues();
+            cv.put("E_MONEY", tu);
+            db.update("USER", cv, "_id = 1", null);
+            Toast toast = Toast.makeText(this, "Top Up Success", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
     }
 
 }
