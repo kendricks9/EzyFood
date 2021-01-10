@@ -59,25 +59,21 @@ public class Order extends AppCompatActivity {
     }
 
     public void OnOrderMore(View view){
-        TextView order = findViewById(R.id.order);
-        String sQty = order.getText().toString();
-        int order_qty = Integer.parseInt(sQty) ;
-        int total_price = order_qty * Integer.parseInt(priceText);
+        addCart();
 
-        ContentValues cartDetailValues = new ContentValues();
-        cartDetailValues.put("NAME", nameText);
-        cartDetailValues.put("PRICE", total_price);
-        cartDetailValues.put("QTY", order_qty);
-        cartDetailValues.put("CARTS_ID", 1);
-        db.insert("CART_DETAILS", null, cartDetailValues);
-
-        Intent intent = new Intent(this, DisplayMenu.class);
         int category_id = cursor.getInt(3);
+        Intent intent = new Intent(this, DisplayMenu.class);
         intent.putExtra(DisplayMenu.EXTRA_CATEGORYID, (int) category_id);
         startActivity(intent);
     }
 
     public void onMyOrder(View view){
+        addCart();
+        Intent intent = new Intent(this, MyOrder.class);
+        startActivity(intent);
+    }
+
+    private void addCart(){
         TextView order = findViewById(R.id.order);
         String sQty = order.getText().toString();
         int order_qty = Integer.parseInt(sQty);
@@ -89,9 +85,7 @@ public class Order extends AppCompatActivity {
         cartDetailValues.put("QTY", order_qty);
         cartDetailValues.put("CARTS_ID", 1);
         db.insert("CART_DETAILS", null, cartDetailValues);
-
-        Intent intent = new Intent(this, MyOrder.class);
-        startActivity(intent);
     }
+
 
 }
