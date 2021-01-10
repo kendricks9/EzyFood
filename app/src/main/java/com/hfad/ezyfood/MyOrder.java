@@ -32,7 +32,7 @@ public class MyOrder extends AppCompatActivity {
             db = ezyfoodDatabaseHelper.getWritableDatabase();
             cursor = db.rawQuery("SELECT SUM(TOTAL_PRICE) FROM CART_DETAILS", null);
             TextView textView = findViewById(R.id.txtTotal);
-            if(cursor.moveToFirst()){
+            if(cursor.moveToFirst() && cursor.getString(0) != null){
                 textView.setText("Total: Rp. " + cursor.getString(0));
             }
             RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
