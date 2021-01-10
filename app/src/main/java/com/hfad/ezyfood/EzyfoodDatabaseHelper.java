@@ -118,7 +118,7 @@ public class EzyfoodDatabaseHelper extends SQLiteOpenHelper {
                     "USER_ID INTEGER," +
                     "TOTAL_PRICE INTEGER," +
                     "RESTAURANT_NAME TEXT," +
-                    "TANGGAL DATE" +
+                    "TRANSACTION_DATE DATE" +
                     ")");
             db.execSQL("CREATE TABLE TRANSACTION_DETAIL(" +
                     "_id INTEGER PRIMARY KEY AUTOINCREMENT," +

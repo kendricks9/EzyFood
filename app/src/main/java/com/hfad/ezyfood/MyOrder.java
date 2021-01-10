@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,11 +17,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MyOrder extends AppCompatActivity {
 
     MyOrderAdapter mAdapter;
-    Cursor cursor;
+    Cursor cursor, cursor2;
     SQLiteDatabase db;
+    int total_price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,8 @@ public class MyOrder extends AppCompatActivity {
             TextView textView = findViewById(R.id.txtTotal);
             TextView textView2 = findViewById(R.id.txtMessage);
             if(cursor.moveToFirst() && cursor.getString(0) != null){
-                textView.setText("Total: Rp. " + cursor.getString(0));
+                total_price = cursor.getInt(0);
+                textView.setText("Total: Rp. " + total_price);
                 textView2.setText("Swipe right/left to delete item on cart");
             }
             RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -66,8 +72,65 @@ public class MyOrder extends AppCompatActivity {
     }
 
     public void onPayNow(View view){
-        Intent intent = new Intent(this, OrderComplete.class);
-        startActivity(intent);
+        cursor = getAllItems();
+
+        if(cursor.moveToFirst()){
+            ContentValues cv = new ContentValues();
+
+            cursor2 = db.rawQuery("SELECT E_MONEY FROM USER WHERE _id = 1", null);
+            if(cursor2.moveToFirst()){
+                int saldo = cursor2.getInt(0) - total_price;
+                if(saldo >= 0){
+                    cv.put("E_MONEY", saldo);
+                    db.update("USER", cv, "_id = 1", null);
+                    cv.clear();
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    String date = sdf.format(new Date());
+
+
+                    cv.put("USER_ID", 1);
+                    cv.put("TOTAL_PRICE", total_price);
+                    cv.put("RESTAURANT_NAME", "-");
+                    cv.put("TRANSACTION_DATE", date);
+
+                    db.insert("TRANSACTIONS", null, cv);
+                    cv.clear();
+
+                    cursor2 = db.rawQuery("SELECT _id FROM TRANSACTIONS", null);
+                    cursor2.moveToLast();
+
+                    Cursor cursor3 = cursor;
+                    int i = 0;
+                    while(i < cursor.getCount()){
+                        cv.put("NAME", cursor3.getString(3));
+                        cv.put("PRICE", cursor3.getString(2));
+                        cv.put("QTY", cursor3.getString(1));
+                        cv.put("TRANSACTION_ID", cursor2.getString(0));
+                        db.insert("TRANSACTION_DETAIL", null, cv);
+                        cv.clear();
+                        cursor3.moveToNext();
+                        i++;
+                    }
+
+                    db.execSQL("DELETE FROM CART_DETAILS");
+
+                    Toast toast = Toast.makeText(this, "Sisa saldo: Rp " + saldo, Toast.LENGTH_SHORT);
+                    toast.show();
+
+                    Intent intent = new Intent(this, OrderComplete.class);
+                    startActivity(intent);
+                } else{
+                    Toast toast = Toast.makeText(this, "Saldo Tidak Cukup", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+
+        } else{
+            Toast toast = Toast.makeText(this, "Cart Kosong", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
     }
 
     private Cursor getAllItems(){
