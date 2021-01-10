@@ -32,8 +32,10 @@ public class MyOrder extends AppCompatActivity {
             db = ezyfoodDatabaseHelper.getWritableDatabase();
             cursor = db.rawQuery("SELECT SUM(TOTAL_PRICE) FROM CART_DETAILS", null);
             TextView textView = findViewById(R.id.txtTotal);
+            TextView textView2 = findViewById(R.id.txtMessage);
             if(cursor.moveToFirst() && cursor.getString(0) != null){
                 textView.setText("Total: Rp. " + cursor.getString(0));
+                textView2.setText("Swipe right/left to delete item on cart");
             }
             RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
